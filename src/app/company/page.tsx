@@ -5,6 +5,7 @@ import AddCompany from "@/components/profile/AddCompany";
 import { useCustomHook } from "@/contexts/AppContext";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
+import { Text } from "@radix-ui/themes";
 
 export default function page() {
   const [isAddCompanyFormOpen, setIsAddCompanyFormOpen] = useState(false);
@@ -38,7 +39,7 @@ export default function page() {
         ) : null }
       </header>
 
-      <div className="companies flex gap-5 ">
+      <div className="companies flex flex-wrap gap-5 ">
         {companies.map((com) => {
           return (
             <div
@@ -71,6 +72,7 @@ export default function page() {
           );
         })}
       </div>
+      {/* <Text color="green">Test color</Text> */}
       {isAddCompanyFormOpen && <AddCompany />}
     </div>
   );

@@ -1,16 +1,15 @@
-// @ts-nocheck
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req: NextResponse) {
-  const user = await getUserFromCookies();
+  const data = await getUserFromCookies();
 
-  if (!user.success) {
+  if (!data?.user) {
     return NextResponse.json({
       success: false,
-      message: user.message,
+      message: data?.message,
     });
   }
 
@@ -19,7 +18,7 @@ export async function POST(req: NextResponse) {
   const company = {
     companyName: body.name,
     companyDescription: body.desc,
-    companyOwnerId: user.id,
+    companyOwnerId: data?.user.id,
   };
 
   try {
@@ -31,7 +30,7 @@ export async function POST(req: NextResponse) {
       data: newCompany,
       message: "company added successfully",
     });
-  } catch (err) {
+  } catch (err : any) {
     console.log(err.message);
     return NextResponse.json({
       success: false,
@@ -48,7 +47,7 @@ export async function GET(req: NextResponse) {
       data: companies,
       message: "companies fetched",
     });
-  } catch (error) {
+  } catch (error : any) {
     console.error("error while fetching companies : ", error.messaage);
     return {
       success: false,

@@ -5,9 +5,9 @@ import React from "react";
 
 export default function Error({ error }) {
   return (
-    <div className="flex justify-center items-center h-screen w-screen text-2xl font-semibold ">
+    <div className="flex justify-center items-center h-screen w-screen text-2xl font-semibold bg-black text-white">
       <div className="border-2 border-red-300 p-2 rounded-2xl">
-        Something went wrong in App: <span className="text-red-500">{error.message || ""} </span>
+        Something went wrong in App: <span className="text-red-300">{error.message || ""} </span>
       </div>
       <Button />
     </div>

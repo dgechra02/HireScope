@@ -14,7 +14,7 @@ export default function Header() {
   //   console.log("user status : ", user.mesasge);
   // }
   console.log("user : in header : ", user);
-  const { setIsAddJobFormOpen, isAddJobFormOpen } = useCustomHook();
+  
   return (
     <header className="sticky top-0 left-0 z-10 w-full flex gap-5 justify-between items-center py-3 px-6 border-b border-[#3a3a3a] bg-black">
       <Link href={"/"} className="flex gap-2">
@@ -26,7 +26,7 @@ export default function Header() {
         </span>
       </Link>
       <Link
-        href={"/jobSearch"}
+        href={"/jobs"}  
         className="flex justify-center text-lg px-3 py-1.5 rounded-lg hover:bg-[#212121] font-semibold text-gray-400 hover:text-white w-20 h-11 transition-all duration-300"
       >
         Jobs
@@ -38,7 +38,7 @@ export default function Header() {
         Companies
       </Link>
       <SearchForm />
-      <button onClick={() => setIsAddJobFormOpen(!isAddJobFormOpen)} className="text-white">Add Job</button>
+      
 
         <Link
           href={"/user"}

@@ -1,14 +1,17 @@
-//@ts-nocheck
 import jwt from "jsonwebtoken";
 
-export function createToken(data) {
-  const token = jwt.sign(data, process.env.JWT_SECRET);
+type Data = {
+  id : string
+}
+
+export function createToken(data : Data) {
+  const token = jwt.sign(data, process.env.JWT_SECRET as string);
   return token; // token ke under encrypt hoke data rkh liya hai
 }
 
-export function verifyToken(token) {
+export function verifyToken(token : string) {
   try {
-    const data = jwt.verify(token, process.env.JWT_SECRET);
+    const data = jwt.verify(token, process.env.JWT_SECRET as string);
     return data;
   } catch {
     return null;

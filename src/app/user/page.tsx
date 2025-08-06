@@ -1,6 +1,7 @@
 "use client";
 import AddCompany from "@/components/profile/AddCompany";
 import { useCustomHook } from "@/contexts/AppContext";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function page() {
@@ -24,6 +25,7 @@ export default function page() {
       </header>
 
       <div className="main flex flex-col gap-5 w-[95%] m-auto">
+        <Link href="user/jobscreated" >Jobs created</Link>
         <div className="statics flex gap-4">
           <div className="bg-[#161616] h-fit py-5 px-10 flex flex-col items-center gap-3 rounded-lg flex-1 border border-[#3a3a3a]">
             <span className="text-3xl font-bold">12</span>

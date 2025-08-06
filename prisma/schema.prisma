@@ -25,12 +25,14 @@ model AddJob {
 }
 
 model User {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId // in db this id stores as an object
-  email    String   @unique
-  password String
-  role     String?
-  company  Company? // user ki company > not neccessary every user have their company
-  resume   Resume?
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId // in db this id stores as an object
+  email       String        @unique
+  password    String
+  role        String?
+  company     Company? // user ki company > not neccessary every user have their company
+  resume      Resume?
+  // review      Review[]
+  application Application[] // ek user ki multiple applications ho sakti hai
 }
 
 // 1 - many relation
@@ -54,7 +56,8 @@ model Company {
   companyOwnerId     String     @unique @db.ObjectId // to match krane ke liye esko bhi object bnao
   companyLogo        String?
   owner              User       @relation(fields: [companyOwnerId], references: [id]) // company ka user || User ke under esi id dhundo ki vo match kr jaye companyOwnerId se
-  Openings           Openings[] // ek company ki multiple opening ho sakti hai 
+  openings           Openings[] // ek company ki multiple opening ho sakti hai 
+  reviews            Review[]
 }
 
 model Resume {
@@ -65,4 +68,20 @@ model Resume {
   graduationYear String
   ownerId        String @unique @db.ObjectId
   owner          User   @relation(fields: [ownerId], references: [id])
+}
+
+model Review {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  content    String
+  user_id    String  @db.ObjectId
+  // user       User   @relation(fields: [user_id], references: [id])
+  company_id String  @db.ObjectId
+  company    Company @relation(fields: [company_id], references: [id])
+}
+
+model Application {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  user_id String @db.ObjectId
+  user    User   @relation(fields: [user_id], references: [id])
+  job_id  String
 }

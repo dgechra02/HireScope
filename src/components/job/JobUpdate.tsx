@@ -1,59 +1,58 @@
 //@ts-nocheck
 "use client";
-import { addJob } from '@/app/action/addJobAction';
-import { useCustomHook } from '@/contexts/AppContext';
-import React, { FormEvent, useState } from 'react';
+import { addJob } from "@/app/action/addJobAction";
+import { useCustomHook } from "@/contexts/AppContext";
+import React, { useState } from "react";
 
-export default function AddJobForm() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [salary, setSalary] = useState('');
-  const [employmentType, setEmploymentType] = useState('');
-  const [jobType, setJobType] = useState('');
+export default function JobUpdate({ job }: { job: object }) {
+  const [title, setTitle] = useState<string>(job?.title ?? "");
+  const [description, setDescription] = useState(job?.description ?? "");
+  const [location, setLocation] = useState(job?.location ?? "");
+  const [salary, setSalary] = useState(job?.salary ?? "");
+  const [employmentType, setEmploymentType] = useState(
+    job?.employmentType ?? ""
+  );
+  const [jobType, setJobType] = useState(job?.jobType ?? "");
 
-  const {user} = useCustomHook();
+  const { user } = useCustomHook();
 
-  async function handleJobAdd(e: FormEvent<HTMLFormElement>) {
+  async function handleJobUpdate(e: React.FormEvent) {
     e.preventDefault();
-    
-    // Here you would typically send the job data to your backend or state management
+
     const jobData = {
       title,
       description,
       location,
-      salary : parseFloat(salary),
+      salary: parseFloat(salary),
       employmentType,
       jobType,
-      company_id : user.company.id // do this with backend for safety
+      company_id: user.company.id, // do this with backend for safety
     };
-    // add these jobs using api - POST
 
-    console.log('Job Added:', jobData);
-    
-    const res = await addJob(jobData);
-    if (res.success) {
-      alert("job added successfully");
-      console.log(res.message);
+    // console.log("Job Added:", jobData);
+
+    const res = await fetch(`/api/job/${job?.id}`, {
+        method : 'POST', 
+        body : JSON.stringify(jobData)
+    });
+    console.log("res of edit job : ", res);
+    const data = await res.json(); 
+    console.log("data of edit job : ", data);
+    if(data?.success){
+        console.log("job saved successfully");
     } else {
-      console.error(res.message);
+        console.log("Error while saving the job")
     }
-
-    // Reset form fields after submission
-    setTitle('');
-    setDescription('');
-    setLocation('');
-    setSalary(0);
-    setEmploymentType('');
-    setJobType('');
   }
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4 absolute top-0 left-0">
       <div className="bg-gray-800 rounded-lg p-8 w-full max-w-md">
-        <h2 className="text-white text-xl font-medium mb-6 text-center">Add a new Job</h2>
-        
-        <form className="space-y-4" onSubmit={(e) => handleJobAdd(e)}>
+        <h2 className="text-white text-xl font-medium mb-6 text-center">
+          Edit Job
+        </h2>
+
+        <form className="space-y-4" onSubmit={handleJobUpdate}>
           {/* Job Title */}
           <label>
             <span className="block text-white text-sm mb-2">Job Title</span>
@@ -69,7 +68,9 @@ export default function AddJobForm() {
 
           {/* Job Description */}
           <label>
-            <span className="block text-white text-sm mb-2">Job Description</span>
+            <span className="block text-white text-sm mb-2">
+              Job Description
+            </span>
             <textarea
               name="jobDescription"
               placeholder="Job Description"
@@ -83,7 +84,9 @@ export default function AddJobForm() {
           {/* Job Location and Job Salary */}
           <div className="grid grid-cols-2 gap-4">
             <label>
-              <span className="block text-white text-sm mb-2">Job Location</span>
+              <span className="block text-white text-sm mb-2">
+                Job Location
+              </span>
               <input
                 type="text"
                 name="jobLocation"
@@ -108,9 +111,11 @@ export default function AddJobForm() {
 
           {/* Employment Type */}
           <label>
-            <span className="block text-white text-sm mb-2">Employment Type</span>
+            <span className="block text-white text-sm mb-2">
+              Employment Type
+            </span>
             <select
-            type="select"
+              type="select"
               name="employmentType"
               value={employmentType}
               onChange={(e) => setEmploymentType(e.target.value)}
@@ -128,7 +133,7 @@ export default function AddJobForm() {
           <label>
             <span className="block text-white text-sm mb-2">Job Type</span>
             <select
-            type="select"
+              type="select"
               name="jobType"
               value={jobType}
               onChange={(e) => setJobType(e.target.value)}
@@ -142,10 +147,10 @@ export default function AddJobForm() {
 
           {/* Submit Button */}
           <button
-            type='submit'
+            type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors"
           >
-            Add Job
+            Save Job
           </button>
         </form>
       </div>

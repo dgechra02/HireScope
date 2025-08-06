@@ -16,20 +16,20 @@ export async function GET() {
     }
     const userId = user.id ; // userId matched with his owner id, to ye hi eski company hai
 
-    const company = await prismaClient.company.findUnique({
-        where : {
-            companyOwnerId : userId
-        }
-    })
-    const data = {
-        ...user, 
-        company
-    }
+    // const company = await prismaClient.company.findUnique({
+    //     where : {
+    //         companyOwnerId : userId
+    //     }
+    // })
+    // const data = {
+    //     ...user, 
+    //     company
+    // }
 
     return NextResponse.json({
         success : true, 
         message : "found user",
-        data : data
+        data : user
     })
 }
 

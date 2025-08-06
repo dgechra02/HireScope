@@ -1,9 +1,8 @@
-//@ts-nocheck
 'use server'
 
 import prismaClient from "@/services/prisma"
 
-export async function addJob(formData) {
+export async function addJob(formData : FormData) {
     try {
         await prismaClient.openings.create({
             data: formData

@@ -9,13 +9,15 @@ export async function getUserFromCookies() {
 
   if(!encryptedToken) return {
     success : false, 
-    message : 'user is not logged in'
+    message : 'user is not logged in',
+    user : null
   }
 
   const data = verifyToken(encryptedToken);
   if(!data) return {
     success : false, 
-    message : 'decrypted data is null'
+    message : 'decrypted data is null',
+    user : null
   };
 
   const user = await prismaClient.user.findUnique({
@@ -32,11 +34,12 @@ export async function getUserFromCookies() {
 
   if (!user) return {
     success : false, 
-    message : 'user is not authenticated'
+    message : 'user is not authenticated',
+    user : null
   };   
 
   return {
-    ...user, 
+    user, 
     success : true
   };
 }

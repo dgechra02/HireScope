@@ -1,10 +1,13 @@
-//@ts-nocheck
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-export default function JobCard({ job }) {
-  const { title, location, employer_logo } = job;
+import {AddJob, Company} from '../../../generated/prisma'; 
+// to show company inside job
+type JobWithCompany = AddJob & {company : Company}
+
+export default function JobCard({ job } : {job : AddJob}) {
+  const { title, location} = job;
   const url = "jobs/" + job.id;
   return (
     <div className="flex flex-col gap-2 borderr rounded-2xl p-4 shadow-[0px_0px_5px_0px_rgba(0,0,0,0.4)] hover:shadow-[0px_0px_10px_3px_rgba(0,0,0,0.4)] bg-[#212121] border-l-4 border border-[#2f2f2f] hover:border-[#686868] transition-all duration-300">

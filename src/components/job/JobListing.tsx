@@ -6,6 +6,17 @@ import { Button } from "@/components/ui/button";
 import { useCustomHook } from "@/contexts/AppContext";
 import { useSearchParams } from "next/navigation";
 
+// type searchParams = Promise<{
+//   q : string, 
+//   ms : string, 
+//   page : string
+// }>
+
+// const queries = await SearchParams 
+// const q = queries.q; 
+// const ms = queries.ms; 
+// const page = queries.page;
+
 export default function JobListing() {
   const searchParams = useSearchParams();
   const searchedValue = searchParams.get("search") || "";

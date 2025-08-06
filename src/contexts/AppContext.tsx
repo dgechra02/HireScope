@@ -1,18 +1,26 @@
-//@ts-nocheck
 "use client";
 import { jobData } from "@/constants/data";
 import { useRouter } from "next/navigation";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, FormEvent, ReactNode, useContext, useEffect, useState } from "react";
+import {User, Company, AddJob} from '../../generated/prisma'
 
-export const appContext = createContext(null);
+type UWC = User & {company : Company}
 
-export default function AppContext({ children }) {
-  const [jobDataArray, setJobDataArray] = useState([]);
-  const [searchedInput, setSearchedInput] = useState("");
+export const appContext = createContext<{
+  user?: User & { company : Company } | null, 
+  setUser? : (value : UWC | null) => void, 
+  jobDataArray? : AddJob[] | null,
+  setJobDataArray? : (value : AddJob[] | null) => void, 
+
+}> ({});
+
+export default function AppContext({ children } : {children : ReactNode}) {
+  const [jobDataArray, setJobDataArray] = useState<AddJob[] | null>([]);
+  const [searchedInput, setSearchedInput] = useState<string>("");
   const [savedJobs, setSavedjobs] = useState([]);
   const [jobDetailsArray, setJobdetailsArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [formError, setFormError] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [formError, setFormError] = useState<string>("");
 
   // useEffect(() => {
   //   async function fetchingData() {
@@ -72,54 +80,54 @@ export default function AppContext({ children }) {
 
   // useEffect(() => setJobDataArray(jobData), []);
 
-  useEffect(() => {
-    const savedInlocal =
-      JSON.parse(localStorage.getItem("savedJobsInLocal")) || [];
-    setSavedjobs(savedInlocal);
-  }, []);
+  // useEffect(() => {
+  //   const savedInlocal =
+  //     JSON.parse(localStorage.getItem("savedJobsInLocal")) || [];
+  //   setSavedjobs(savedInlocal);
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("savedJobsInLocal", JSON.stringify(savedJobs));
-  }, [savedJobs]);
+  // useEffect(() => {
+  //   localStorage.setItem("savedJobsInLocal", JSON.stringify(savedJobs));
+  // }, [savedJobs]);
 
-  function saveJobsFn(job) {
-    console.log("job in fn ; ", job);
+  // function saveJobsFn(job) {
+  //   console.log("job in fn ; ", job);
 
-    const existingJob =
-      savedJobs.length != 0
-        ? savedJobs?.find((j) => j?.job_id === job.job_id)
-        : undefined;
-    if (!existingJob) {
-      setSavedjobs([...savedJobs, job]);
-    } else alert("Job already saved!");
-  }
+  //   const existingJob =
+  //     savedJobs.length != 0
+  //       ? savedJobs?.find((j) => j?.job_id === job.job_id)
+  //       : undefined;
+  //   if (!existingJob) {
+  //     setSavedjobs([...savedJobs, job]);
+  //   } else alert("Job already saved!");
+  // }
   // console.log("savedJobs : ", savedJobs);
 
-  function removeJobsFn(job) {
-    const filteredJobs = savedJobs.filter((j) => j.job_id !== job.job_id);
-    setSavedjobs(filteredJobs);
-  }
+  // function removeJobsFn(job : AddJob) {
+  //   const filteredJobs = savedJobs.filter((j) => j.job_id !== job.job_id);
+  //   setSavedjobs(filteredJobs);
+  // }
 
   // job form
   const [isAddJobFormOpen, setIsAddJobFormOpen] = useState(false);
 
   // job filters
-  const [employmentType, setEmploymentType] = useState("Full-time");
-  const [jobType, setJobType] = useState("Remote");
-  const [salary, setSalary] = useState(1000);
-  const [currPage, setCurrPage] = useState(1);
+  const [employmentType, setEmploymentType] = useState<string>("Full-time");
+  const [jobType, setJobType] = useState<string>("Remote");
+  const [salary, setSalary] = useState<number>(1000);
+  const [currPage, setCurrPage] = useState<number>(1);
 
   async function fetchJobFilterData() {
     try {
       const res = await fetch(
         `http://localhost:3000/api/jobSearch/?employmentType=${employmentType}&jobType=${jobType}&salary=${salary}&page=${currPage}`
       );
-      console.log("res ", res);
+      // console.log("res ", res);
       const data = await res.json();
-      console.log("data ", data);
+      // console.log("data ", data);
       setJobDataArray(data.dataArray);
-      console.log("Data Array after filtering ", data.dataArray);
-    } catch (error) {
+      // console.log("Data Array after filtering ", data.dataArray);
+    } catch (error : any) {
       console.log("Error fetching data", error.message);
     }
   }
@@ -129,7 +137,7 @@ export default function AppContext({ children }) {
   }, [currPage]);
 
   const router = useRouter();
-  function handleJobFilterForm(e) {
+  function handleJobFilterForm(e : FormEvent) {
     e.preventDefault();
     const url = `http://localhost:3000/jobSearch/?employmentType=${employmentType}&jobType=${jobType}&salary=${salary}&page=1`;
     router.push(url);
@@ -140,20 +148,22 @@ export default function AppContext({ children }) {
   // const [isAddJobFormOpen, setIsAddJobFormOpen] = useState(false);
 
   // logged in user 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<UWC | null>(null);
+
+    console.log("USER : ", user)
   
     useEffect(() => {
       async function getUser() {
         try {
           const res = await fetch("http://localhost:3000/api/currentUser");
-          console.log("response of user : ", res);
+          // console.log("response of user : ", res);
           const data = await res.json();
           // console.log("data ; ", data); 
           if(data.success){
-            setUser(data.data);
+            setUser(data.data.user);
           }
-          console.log("current User message : ", data.message)
-        } catch(error) {
+          // console.log("current User message : ", data.message)
+        } catch(error : any) {
             console.log("Error finding user : ", error.message)
         }
       }
@@ -167,10 +177,10 @@ export default function AppContext({ children }) {
         setJobDataArray,
         searchedInput,
         setSearchedInput,
-        savedJobs,
-        setSavedjobs,
-        saveJobsFn,
-        removeJobsFn,
+        // savedJobs,
+        // setSavedjobs,
+        // saveJobsFn,
+        // removeJobsFn,
         jobDetailsArray,
         setJobdetailsArray,
         isLoading,

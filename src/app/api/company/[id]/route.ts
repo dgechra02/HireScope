@@ -1,9 +1,9 @@
-//@ts-nocheck
 import { getUserFromCookies } from "@/helper";
 import prismaClient from "@/services/prisma";
-import { NextResponse } from "next/server";
+import { paramsType } from "@/types/type";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req, { params }) {
+export async function GET(req : NextRequest, { params } : paramsType) {
   const {id} = await params;
 
   try {
@@ -14,6 +14,9 @@ export async function GET(req, { params }) {
       include: {
         owner: true, // owner ek relation hai, to esko explicitly bulana hoga
       },
+      include : {
+        openings : true
+      }
     });
     if (!company) {
       console.log("company not available");
@@ -29,7 +32,7 @@ export async function GET(req, { params }) {
         message : 'company found'
       });
     }
-  } catch (error) {
+  } catch (error : any) {
     console.log("Error fetching company : ", error.message);
     return NextResponse.json({
       success: false,
@@ -68,26 +71,26 @@ export async function GET(req, { params }) {
   // no need to bring owner sepratelly
 }
 
-// to delete
-export async function POST(req, { params }) {
-  const id = params.id;
-  const user = await getUserFromCookies();
-  // ab user me company bhi hai
+// to delete COM
+// export async function DELETE(req, { params }) {
+//   const id = params.id;
+//   const user = await getUserFromCookies();
+//   // ab user me company bhi hai
 
-  // try {
-  //   const company = await prismaClient.company.findUnique({
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  // } catch (error) {}
+//   // try {
+//   //   const company = await prismaClient.company.findUnique({
+//   //     where: {
+//   //       id,
+//   //     },
+//   //   });
+//   // } catch (error) {}
 
-  // if (company?.companyOwnerId == user?.id) {
-  if (user?.company?.id == user?.id) {
-    const res = await prismaClient.company.delete({
-      where: {
-        id,
-      },
-    });
-  }
-}
+//   // if (company?.companyOwnerId == user?.id) {
+//   if (user?.company?.id == user?.id) {
+//     const res = await prismaClient.company.delete({
+//       where: {
+//         id,
+//       },
+//     });
+//   }
+// }
