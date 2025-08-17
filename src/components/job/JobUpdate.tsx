@@ -55,7 +55,7 @@ export default function JobUpdate({
   }
 
   return (
-    <div className="h-screen w-screen bg-[#00000060] flex items-center justify-center p-4 absolute top-0 left-0">
+    <div className="h-screen w-screen bg-[#00000060] flex items-center justify-center p-4 absolute top-0 left-0 z-10">
       <div className="bg-gray-800 rounded-lg p-8 w-full max-w-md relative ">
         <button
           className="absolute top-3 right-3 w-fit cursor-pointer"

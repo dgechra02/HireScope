@@ -34,7 +34,7 @@ export default function JobDeleteUpdate({
   return (
     <div className="parent w-full">
       <div>
-        {user?.company?.id == job?.company_id ? (
+        {user && (user?.company?.id == job?.company_id) ? (
           <div className="w-full flex gap-4">
             <Button
               onClick={() => {
