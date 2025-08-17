@@ -50,7 +50,7 @@ export default function page() {
         </button>
       </header>
 
-      <div className="main w-screen p-5 flex gap-3 flex-wrap justify-center">
+      <div className="main w-full p-5 flex gap-3 flex-wrap justify-center">
         {!isLoading ? (
           openings.length != 0 ? (
             openings?.map((job) => {

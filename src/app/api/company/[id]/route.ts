@@ -26,7 +26,7 @@ export async function GET(req : NextRequest, { params } : paramsType) {
       console.log('company found')
       return NextResponse.json({
         success: true,
-        // data: company,
+        data: company,
         message : 'company found'
       });
     }

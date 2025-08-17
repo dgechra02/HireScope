@@ -2,13 +2,13 @@ import prismaClient from "@/services/prisma";
 import { paramsType } from "@/types/type";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: paramsType) {
-  const { id } = await params;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ companyId: string }> }) {
+  const { companyId } = await params;
 
   try {
     const reviews = await prismaClient.review.findMany({
       where: {
-        company_id: id,
+        company_id: companyId,
       },
     });
     if (reviews) {

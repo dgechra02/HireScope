@@ -30,7 +30,7 @@ model User {
   email       String        @unique
   password    String
   company     Company? // user ki company > not neccessary every user have their company
-  resume      Resume?
+  // resume      Resume?
   application Application[] // ek user ki multiple applications ho sakti hai
 }
 
@@ -67,7 +67,7 @@ model Resume {
   cgpa           String
   graduationYear String
   ownerId        String @unique @db.ObjectId
-  owner          User   @relation(fields: [ownerId], references: [id])
+  // owner          User   @relation(fields: [ownerId], references: [id])
 }
 
 model Review {

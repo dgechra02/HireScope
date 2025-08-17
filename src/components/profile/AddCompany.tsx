@@ -58,7 +58,7 @@ export default function AddCompany({
     }
   }
   return (
-    <Card className="w-full max-w-sm absolute top-50">
+    <Card className="w-[90%] max-w-sm absolute top-50">
       <CardHeader className="flex flex-col">
         <CardTitle>Add New Company</CardTitle>
         <CardDescription>

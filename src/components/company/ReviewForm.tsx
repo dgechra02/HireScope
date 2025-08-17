@@ -3,14 +3,14 @@ import { useCustomHook } from "@/contexts/AppContext";
 import React, { FormEvent, useState } from "react";
 import { Review } from "../../../generated/prisma";
 
-export default function ReviewForm({ companyId, setReviews }: { companyId: string, setReviews: (value : Review[]) => void }) {
-  console.log("companyId :: in form ", companyId);
+export default function ReviewForm({ companyId, setReviews, reviews }: { companyId: string, setReviews: (value : Review[]) => void, reviews: Review[] }) {
+  console.log("companyId in form : ", companyId);
 
   const { user } = useCustomHook();
+  // console.log("user in review form compo. : ", user);
 
   const [review, setReview] = useState("");
   const [error, setError] = useState("");
-  
 
   const reviewData = {
     content: review,
@@ -24,6 +24,9 @@ export default function ReviewForm({ companyId, setReviews }: { companyId: strin
     if (review.trim().length == 0) {
       setError("Review can't be empty");
       return;
+    } else if(!user){
+      setError("Login to review a company");
+      return;
     }
     const res = await fetch("/api/company/review", {
       method: "POST",
@@ -32,7 +35,7 @@ export default function ReviewForm({ companyId, setReviews }: { companyId: strin
     const data = await res.json();
     if (data.success) {
       alert("Review added");
-      // setReview(prev => [...prev, reviewData])
+      // setReviews([...reviews, reviewData])
 
     } else {
       alert("something went wrong");
@@ -42,7 +45,7 @@ export default function ReviewForm({ companyId, setReviews }: { companyId: strin
 
   return (
     <div className="form flex flex-col gap-2">
-      <form onSubmit={handleSubmit} className="flex gap-5">
+      <form onSubmit={handleSubmit} className="flex max-sm:flex-col gap-5">
         <input
           type="text"
           placeholder="write a review"

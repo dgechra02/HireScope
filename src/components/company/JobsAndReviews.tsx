@@ -11,10 +11,12 @@ export default function JobsAndReviews({
   jobs: AddJob[];
   companyId: string;
 }) {
-  // console.log("companyId :: in component ", companyId)
+  console.log("companyId in jobandreviews component ", companyId);
 
-  const [reviews, setReviews ] = useState<Review[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log("reviews : ", reviews);
 
   useEffect(() => {
     async function fetchData() {
@@ -31,48 +33,68 @@ export default function JobsAndReviews({
   }, []);
 
   return (
-    <div className="flex justify-between border-2 border-white p-2">
-      <div className="border border-white p-3 w-[45%]">
-        <span>Jobs by this company</span>
-        <div className="jobs flex flex-col gap-3 p-5">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Jobs Section */}
+      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h3 className="text-lg font-medium text-white mb-4">
+          Jobs by this company
+        </h3>
+        <div className="space-y-3">
           {!isLoading ? (
-            jobs.length ? (
-              jobs.map((j, index) => {
-                return (
-                  <span key={j.id}>
-                    {index + 1}. {j.title}
+            jobs?.length ? (
+              jobs.map((job, index) => (
+                <div
+                  key={job.id}
+                  className="flex items-center gap-3 text-gray-300"
+                >
+                  <span className="flex items-center justify-center w-6 h-6 bg-gray-600 text-white text-sm font-medium rounded-full">
+                    {index + 1}
                   </span>
-                );
-              })
+                  <span className="text-white">{job.title}</span>
+                </div>
+              ))
             ) : (
-              <span>no jobs available</span>
+              <p className="text-gray-400">No jobs available</p>
             )
           ) : (
-            <Spinner className="text-white" />
+            <div className="flex justify-center py-4">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-400"></div>
+            </div>
           )}
         </div>
       </div>
-      <div className="review border border-white text-white w-[45%] p-2">
-        <span className="text-2xl">reviews</span>
-        <div className=" p-2">
-          <ReviewForm companyId={companyId} setReviews={setReviews}/>
-          <div className="flex flex-col gap-2 p-2">
-            {!isLoading ? (
-              reviews.length != 0 ? (
-                reviews.map((r, index) => {
-                  return (
-                    <span key={r?.id}>
-                      {index + 1}. {r?.content}
-                    </span>
-                  );
-                })
-              ) : (
-                <span className="text-white">No reviews</span>
-              )
+
+      {/* Reviews Section */}
+      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h3 className="text-lg font-medium text-white mb-4">Reviews</h3>
+
+        <ReviewForm
+          companyId={companyId}
+          setReviews={setReviews}
+          reviews={reviews}
+        />
+        <div className="space-y-3">
+          {!isLoading ? (
+            reviews?.length ? (
+              reviews.map((review, index) => (
+                <div
+                  key={review.id}
+                  className="flex items-start gap-3 text-gray-300"
+                >
+                  <span className="flex items-center justify-center w-6 h-6 bg-gray-600 text-white text-sm font-medium rounded-full mt-0.5">
+                    {index + 1}
+                  </span>
+                  <span className="text-white">{review.content}</span>
+                </div>
+              ))
             ) : (
-              <Spinner className="text-white"/>
-            )}
-          </div>
+              <p className="text-gray-400">No reviews</p>
+            )
+          ) : (
+            <div className="flex justify-center py-4">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-400"></div>
+            </div>
+          )}
         </div>
       </div>
     </div>

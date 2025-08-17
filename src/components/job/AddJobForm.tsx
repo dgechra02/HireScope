@@ -60,7 +60,7 @@ export default function AddJobForm({
   }
 
   return (
-    <div className="fixed top-0 left-0 h-screen w-screen flex items-center justify-center p-4 ">
+    <div className="fixed top-0 left-0 h-screen w-screen flex items-center justify-center p-4 bg-black/60">
       <div className="bg-[#212121] rounded-lg p-8 w-full max-w-md relative">
         <button
           className="absolute top-3 right-3 cursor-pointer"

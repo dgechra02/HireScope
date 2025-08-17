@@ -8,22 +8,22 @@ import { useEffect, useState } from "react";
 export default function page() {
   const params = useParams<{ id : string } >();
   const id = params.id;
-  // console.log("id id id did id ::: ", id);
+  // console.log("id id id id id ::: ", id);
   const [company, setCompany] = useState<CompanyWithOwner | null>();
   const [jobs, setJobs] = useState([]);
 
-  // console.log("id of company : ", id);
+  console.log("id of company : ", id);
 
   useEffect(() => {
     async function fetchingData() {
       const res = await fetch("/api/company/" + id);
-      console.log("respnose while going to cmpany page : ", res);
+      // console.log("respnose while going to cmpany page : ", res);
       const data = await res.json();
-      console.log("data on the comany page : ", data);
+      // console.log("data on the comany page : ", data);
       if (data.success) {
         setCompany(data?.data);
         setJobs(data?.data?.openings);
-        console.log("company found");
+        // console.log("company found");
       } else {
         // alert("Company not found");
         console.log("company not found");
@@ -32,20 +32,43 @@ export default function page() {
     fetchingData();
   }, []);
 
-  // console.log("company in the company/id: ", company);
+  console.log("company in the company/id: ", company);
 
-  return (
-    <div className="bg-black text-white p-5 min-h-screen flex flex-col gap-5">
-      <span className="text-2xl font-semibold">Company Details : </span>
-      <div className="flex flex-col gap-2 p-5 border">
-        <h1>{company?.companyName ? company?.companyName : <Spinner />} </h1>
-        <p>{company?.companyDescription}</p>
-        <h2>{company?.owner?.email}</h2>
-        {/* <Button>
-          <Trash width={20} /> delete Company
-        </Button> */}
+ return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <div className="bg-gray-800 border-b border-gray-700">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <h1 className="text-2xl font-bold text-white mb-1">Company Details</h1>
+          <p className="text-gray-400">Comprehensive information about the company</p>
+        </div>
       </div>
-      <div className="">
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-6">
+        {/* Company Information Card */}
+        <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">Company Name</h3>
+              <p className="text-lg font-medium text-white">
+                {company?.companyName || (
+                  <span className="animate-spin inline-block w-4 h-4 border-b-2 border-gray-400 rounded-full"></span>
+                )}
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">Description</h3>
+              <p className="text-white">{company?.companyDescription || "No description available"}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">Owner</h3>
+              <p className="text-white">{company?.owner?.email || "No owner information"}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Jobs and Reviews Section */}
         <JobsAndReviews jobs={jobs} companyId={id} />
       </div>
     </div>

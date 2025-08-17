@@ -39,7 +39,7 @@ export default function page() {
   return (
     <div className="flex h-screen w-screen justify-center items-center bg-black text-white">
       
-      <div className="auth bg-[#212121] rounded-xl  px-5 py-14 flex flex-col items-center gap-4 w-[450px]">
+      <div className="auth bg-[#212121] rounded-xl  px-5 py-14 flex flex-col items-center gap-4 md:w-[450px] sm:w-[350px] w-[300px]">
         <div className="flex flex-col items-center gap-7">
           <div className="flex gap-2">
             <span className="bg-[#8292A7] font-bold text-2xl py-1 px-2 leading-none rounded-md">
@@ -56,12 +56,12 @@ export default function page() {
             </span>
           </div>
         </div>
-        <form onSubmit={handleSumbit} className="flex flex-col gap-4 w-90">
-          <label htmlFor="email" className="flex flex-col gap-1">
+        <form onSubmit={handleSumbit} className="flex flex-col gap-4 w-full">
+          <label htmlFor="email" className="flex flex-col gap-1">   
             Email Address
             <input
               id="email"
-              type="email"
+              type="email"  
               name="email"
               className="border border-[#3a3a3a] hover:border-[#535353] px-3 rounded-md outline-none bg-[#2d2d2d] hover:bg-[#3d3d3d] transition-all duration-300 h-11"
               placeholder="Enter Email"

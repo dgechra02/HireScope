@@ -54,8 +54,8 @@ export default function page() {
   }
 
   return (
-    <div className="flex h-screen w-screen justify-center items-center bg-black text-white">
-      <div className="auth bg-[#212121] rounded-xl  px-5 py-10 flex flex-col items-center gap-4 w-[450px]">
+    <div className="flex min-h-screen w-screen justify-center items-center bg-black text-white p-5">
+      <div className="auth bg-[#212121] rounded-xl  px-5 py-10 flex flex-col items-center gap-4 md:w-[450px] sm:w-[350px] w-[300px]">
         <div className="flex flex-col items-center gap-5">
           <div className="flex gap-2">
             <span className="bg-[#8292A7] font-bold text-2xl py-1 px-2 leading-none rounded-md">
@@ -70,7 +70,7 @@ export default function page() {
             <span className="text-gray-400">Join HireScope to get started</span>
           </div>
         </div>
-        <form onSubmit={handleSumbit} className="flex flex-col gap-3 w-90">
+        <form onSubmit={handleSumbit} className="flex flex-col gap-3 w-full">
           <label htmlFor="email" className="flex flex-col gap-1">
             Full Name
             <input

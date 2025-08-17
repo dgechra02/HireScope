@@ -94,7 +94,7 @@ export default async function page({ params }) {
   } // checking that user has applied or not
 
   return (
-    <div className="w-screen h-screen bg-black text-white ">
+    <div className="w-full min-h-full bg-black text-white ">
       <div className="h-[80%] w-full flex flex-col gap-5 shadow-lg p-10 ">
         <span>
           <span className="font-semibold">Job Title: </span> {title}
@@ -116,9 +116,9 @@ export default async function page({ params }) {
       </a> */}
 
         <div className="jobActions flex flex-wrap gap-4">
-          <Button className="w-fit">
+          {/* <Button className="w-fit">
             <Bookmark width={20} /> Save
-          </Button>
+          </Button> */}
           <HandleJobApplication job={job} userHasApplied={userHasApplied} />
           {/* <ViewJobApplications job={job} /> */}
           <JobDeleteUpdate user={user} job={job} />

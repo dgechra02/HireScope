@@ -32,7 +32,7 @@ export default function page() {
   return (
     <div className="min-h-screen w-screen flex flex-col gap-5 items-center relative bg-black text-white">
       <header className="flex justify-between items-center px-4 py-2 border-b border-[#3a3a3a] w-full h-16">
-        <h2 className="text-3xl font-semibold">Listed Companies</h2>
+        <h2 className="md:text-3xl sm:text-2xl text-xl font-semibold">Listed Companies</h2>
         <button
           onClick={() => {
             if (user) {
@@ -47,7 +47,7 @@ export default function page() {
         </button>
       </header>
 
-      <div className="companies flex flex-wrap gap-5 justify-center">
+      <div className="companies grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5 gap-5 justify-center p-5">
         {!isLoading ? (
           companies.length != 0 ? (
             companies.map((com) => {
@@ -55,7 +55,7 @@ export default function page() {
               return (
                 <div
                   key={com.id}
-                  className="company flex flex-col gap-2 p-5 w-100 rounded-lg border bg-[#1c1c1c] border-[#2f2f2f] hover:border-[#686868] transition-all duration-300"
+                  className="flex flex-col gap-2 p-5 rounded-lg border bg-[#1c1c1c] border-[#2f2f2f] hover:border-[#686868] transition-all duration-300"
                 >
                   <div className="flex gap-2 items-center">
                     <img
