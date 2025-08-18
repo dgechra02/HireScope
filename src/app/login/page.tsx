@@ -54,6 +54,9 @@ export default function page() {
             <span className="text-gray-400">
               Sign in to your account to continue
             </span>
+            <span className="text-gray-400 text-sm">
+              (Guest? email: guest123@gmail.com, pass: 12345)
+            </span>
           </div>
         </div>
         <form onSubmit={handleSumbit} className="flex flex-col gap-4 w-full">
