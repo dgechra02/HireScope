@@ -8,6 +8,7 @@ export async function POST(req: NextRequest) {
   const dataObj = {
     content: body?.content,
     user_id: body?.user_id,
+    userName: body?.userName,
     company_id: body?.company_id,
   };
   try {

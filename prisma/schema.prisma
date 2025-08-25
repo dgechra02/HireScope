@@ -75,6 +75,7 @@ model Review {
   content    String
   user_id    String  @db.ObjectId
   // user       User   @relation(fields: [user_id], references: [id])
+  userName   String
   company_id String  @db.ObjectId
   company    Company @relation(fields: [company_id], references: [id])
 }

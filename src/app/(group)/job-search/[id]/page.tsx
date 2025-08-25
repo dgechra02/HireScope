@@ -121,7 +121,7 @@ export default async function page({ params }) {
           </Button> */}
           <HandleJobApplication job={job} userHasApplied={userHasApplied} />
           {/* <ViewJobApplications job={job} /> */}
-          <JobDeleteUpdate user={user} job={job} />
+          {/* <JobDeleteUpdate user={user} job={job} /> */}
         </div>
       </div>
     </div>

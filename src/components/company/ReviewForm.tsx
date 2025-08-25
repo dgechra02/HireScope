@@ -15,6 +15,7 @@ export default function ReviewForm({ companyId, setReviews, reviews }: { company
   const reviewData = {
     content: review,
     user_id: user?.id,
+    userName: user?.fullName,
     company_id: companyId,
   };
 

@@ -72,7 +72,7 @@ export default function page() {
                   <span className="text-gray-300">
                     Owner : {com?.owner?.fullName}
                   </span>
-                  <span className="text-gray-300">
+                  <span className="text-gray-300 line-clamp-5">
                     Description : {com.companyDescription}
                   </span>
                   <Link

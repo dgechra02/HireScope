@@ -84,7 +84,11 @@ export default function JobsAndReviews({
                   <span className="flex items-center justify-center w-6 h-6 bg-gray-600 text-white text-sm font-medium rounded-full mt-0.5">
                     {index + 1}
                   </span>
-                  <span className="text-white">{review.content}</span>
+                  <div className="review flex flex-col">
+                    <span className="text-sm text-gray-500">{review?.userName}</span>
+                    <span className="text-white">{review.content} </span>
+                  </div>
+
                 </div>
               ))
             ) : (
