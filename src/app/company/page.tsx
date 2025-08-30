@@ -33,13 +33,13 @@ export default function page() {
     <div className="min-h-screen w-full flex flex-col gap-5 items-center relative bg-black text-white">
       <header className="flex justify-between items-center px-4 py-2 border-b border-[#3a3a3a] w-full h-16">
         <Link href={"/"} className="flex gap-2 focus-visible:outline-none">
-        <span className="bg-[#8292A7] flex items-center font-bold text-2xl py-1 px-2 leading-none rounded-md">
-          H
-        </span>
-        <span className="md:block hidden text-3xl font-bold text-white ">
-          HireScope
-        </span>
-      </Link>
+          <span className="bg-[#8292A7] flex items-center font-bold text-2xl py-1 px-2 leading-none rounded-md">
+            H
+          </span>
+          <span className="md:block hidden text-3xl font-bold text-white ">
+            HireScope
+          </span>
+        </Link>
         <div className="flex gap-3">
           {/* <h2 className="md:text-3xl sm:text-2xl text-xl font-semibold">
             Listed Companies

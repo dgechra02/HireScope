@@ -35,7 +35,7 @@ export default function JobsAndReviews({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Jobs Section */}
-      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+      <div className="bg-[#1c1c1c] rounded-lg p-6 border border-[#2f2f2f]">
         <h3 className="text-lg font-medium text-white mb-4">
           Jobs by this company
         </h3>
@@ -65,7 +65,7 @@ export default function JobsAndReviews({
       </div>
 
       {/* Reviews Section */}
-      <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+      <div className="bg-[#1c1c1c] rounded-lg p-6 border border-[#2f2f2f]">
         <h3 className="text-lg font-medium text-white mb-4">Reviews</h3>
 
         <ReviewForm
