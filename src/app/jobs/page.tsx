@@ -33,7 +33,15 @@ export default function page() {
   return (
     <div className="bg-black text-white min-h-screen">
       <header className="flex justify-between py-3 px-6 border-b border-[#3a3a3a]">
-        <h3 className="text-2xl font-semibold">Jobs</h3>
+        <Link href={"/"} className="flex gap-2 focus-visible:outline-none">
+        <span className="bg-[#8292A7] flex items-center font-bold text-2xl py-1 px-2 leading-none rounded-md">
+          H
+        </span>
+        <span className="md:block hidden text-3xl font-bold text-white ">
+          HireScope
+        </span>
+      </Link>
+        {/* <h3 className="text-2xl font-semibold">Jobs</h3> */}
         <button
           onClick={() => {
             if (!user) {

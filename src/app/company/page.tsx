@@ -32,19 +32,31 @@ export default function page() {
   return (
     <div className="min-h-screen w-full flex flex-col gap-5 items-center relative bg-black text-white">
       <header className="flex justify-between items-center px-4 py-2 border-b border-[#3a3a3a] w-full h-16">
-        <h2 className="md:text-3xl sm:text-2xl text-xl font-semibold">Listed Companies</h2>
-        <button
-          onClick={() => {
-            if (user) {
-              setIsAddCompanyFormOpen(true);
-            } else {
-              alert("Login first!");
-            }
-          }}
-          className="flex items-center justify-center border bg-white text-black font-bold px-3.5 py-2 rounded-lg cursor-pointer"
-        >
-          Add company
-        </button>
+        <Link href={"/"} className="flex gap-2 focus-visible:outline-none">
+        <span className="bg-[#8292A7] flex items-center font-bold text-2xl py-1 px-2 leading-none rounded-md">
+          H
+        </span>
+        <span className="md:block hidden text-3xl font-bold text-white ">
+          HireScope
+        </span>
+      </Link>
+        <div className="flex gap-3">
+          {/* <h2 className="md:text-3xl sm:text-2xl text-xl font-semibold">
+            Listed Companies
+          </h2> */}
+          <button
+            onClick={() => {
+              if (user) {
+                setIsAddCompanyFormOpen(true);
+              } else {
+                alert("Login first!");
+              }
+            }}
+            className="flex items-center justify-center border bg-white text-black font-bold px-3.5 py-2 rounded-lg cursor-pointer"
+          >
+            Add company
+          </button>
+        </div>
       </header>
 
       <div className="companies w-full flex flex-wrap justify-center p-5 gap-3">
@@ -99,6 +111,5 @@ export default function page() {
     </div>
   );
 }
-
 
 //  grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-5 gap-5
