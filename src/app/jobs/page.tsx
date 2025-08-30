@@ -57,7 +57,7 @@ export default function page() {
               return (
                 <div
                   key={job?.id}
-                  className="flex flex-col gap-2 p-5 w-100 rounded-lg border bg-[#1c1c1c] border-[#2f2f2f] hover:border-[#686868] transition-all duration-300"
+                  className="flex flex-col gap-2 p-5 w-[460px] rounded-lg border bg-[#1c1c1c] border-[#2f2f2f] hover:border-[#686868] transition-all duration-300"
                 >
                   <Link
                     href={`jobs/${job.id}`}
