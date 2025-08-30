@@ -13,6 +13,7 @@ export default function page() {
   const [jobType, setJobType] = useState<string>("Remote");
   const [salary, setSalary] = useState<string>("1000");
   const [currPage, setCurrPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function fetchJobFilterData() {
     try {
@@ -27,6 +28,7 @@ export default function page() {
     } catch (error: any) {
       console.log("Error fetching data", error.message);
     }
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -56,6 +58,7 @@ export default function page() {
         jobDataArray={jobDataArray}
         currPage={currPage}
         setCurrPage={setCurrPage}
+        isLoading={isLoading}
       />
     </div>
   );

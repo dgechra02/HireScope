@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import SideBar from "./SideBar";
 import { AddJob } from "../../../generated/prisma";
+import { Spinner } from "@radix-ui/themes";
 
 // type searchParams = Promise<{
 //   q : string,
@@ -23,10 +24,12 @@ export default function JobListing({
   jobDataArray,
   currPage,
   setCurrPage,
+  isLoading
 }: {
   jobDataArray: AddJob[];
   currPage: number;
   setCurrPage: (value: number) => void;
+  isLoading: Boolean
 }) {
   const searchParams = useSearchParams();
   const searchedValue = searchParams.get("search") || "";
@@ -55,13 +58,13 @@ export default function JobListing({
         </button>
       )}
       <div className="jobCards grid gap-5 3xl:grid-cols-4 2xl:grid-cols-3 xl:grid-cols-2 grid-cols-1 mb-5 ">
-        {showSearchedResults?.length ? (
+        {!isLoading ? showSearchedResults?.length ? (
           showSearchedResults?.map((job) => {
             return <JobCard key={job?.id} job={job} />;
           })
         ) : (
           <span>No jobs found.</span>
-        )}
+        ) : <Spinner size={"3"} />}
       </div>
       <div className="pagination flex justify-between w-full">
         <Button
